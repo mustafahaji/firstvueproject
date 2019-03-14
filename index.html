@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ST GlobalTechnology</title>
+    <link rel="stylesheet" href="./bootstrap-v4/css/bootstrap.min.css" />
+  </head>
+
+  <body>
+    <h1 style="color:cyan;">Tmmmt Work Flow</h1>
+    <h2 class="center" id="hs">Business Logic</h2>
+
+    <div id="app-4">
+      <!-- the submit event will no longer reload the page -->
+      <form v-on:submit.prevent="onSubmit">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input
+            v-model="project.name"
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="your name"
+            style="width:50%"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="projectName">Project Name:</label>
+          <input
+            v-model="project.projectName"
+            type="text"
+            class="form-control"
+            id="projectName"
+            placeholder="your name"
+            style="width:50%"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="reason">Reason:</label>
+          <textarea
+            v-model="project.reason"
+            class="form-control"
+            id="reason"
+            rows="3"
+            style="width:50%"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">submit</button>
+      </form>
+
+      <table class="table table-border table-hover mt-3">
+        <thead>
+          <tr>
+            <th>Slno:</th>
+            <th>Name</th>
+            <th>Project name</th>
+            <th>Reason</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(project, index) in projects">
+            <td>{{ index + 1 }}</td>
+            <td>{{ project.name }}</td>
+            <td>{{ project.projectName }}</td>
+            <td>{{ project.reason }}</td>
+            <td>
+              <button
+                class="btn btn-primary btn-sm"
+                v-on:click="editProject(index, project)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-danger btn-sm"
+                v-on:click="deleteIndex(index)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./bootstrap-v4/js/bootstrap.min.js"></script>
+
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+      const app4 = new Vue({
+        el: "#app-4",
+        data: {
+          projects: [
+            { name: "Mustafa", projectName: "iOS", reason: "hahahah" },
+            { name: "Nasrullah", projectName: "VueJS", reason: "heeheheh" },
+            { name: "Prasanna", projectName: "NodeJS", reason: "lalalaalal" },
+            { name: "Kannan", projectName: "ReactJS", reason: "lulululuul" }
+          ],
+          project: {},
+          selectedProjectIndex: -1
+        },
+        methods: {
+          onSubmit() {
+            // below this line created obj & push the keys,values to display the input data in below table.
+            const newobj = {
+              name: this.project.name,
+              projectName: this.project.projectName,
+              reason: this.project.reason
+            };
+
+            if (this.selectedProjectIndex > -1) {
+              this.projects[this.selectedProjectIndex] = newobj;
+            } else this.projects.push(newobj);
+
+            this.project = {};
+            this.selectedProjectIndex = -1;
+          },
+          deleteIndex(index) {
+            this.projects.splice(index, 1); // this is for deleting the particular row.
+          },
+          editProject(index, project) {
+            this.selectedProjectIndex = index;
+            this.project = { ...project };
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+<style>
+  #hs {
+    color: blueviolet;
+  }
+</style>

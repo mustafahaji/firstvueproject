@@ -7,7 +7,7 @@
 
   <body>
     <h1 style="color:cyan;">Tmmmt Work Flow</h1>
-    <h2 class="center" id="hs">Business Logic</h2>
+    <h2 style="color: blueviolet">Business Logic</h2>
 
     <div id="app-4">
       <!-- the submit event will no longer reload the page -->
@@ -134,15 +134,10 @@
           },
           editProject(index, project) {
             this.selectedProjectIndex = index;
-            this.project = { ...project };
+            this.project = { ...project }; //this is spread operator.
           }
         }
       });
     </script>
   </body>
 </html>
-<style>
-  #hs {
-    color: blueviolet;
-  }
-</style>
